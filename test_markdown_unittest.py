@@ -36,6 +36,40 @@ class TestMarkdownPy(unittest.TestCase):
                 run_markdown('**this should be wrapped in strong tags**'),
                 '<p><strong>this should be wrapped in strong tags</strong></p>')
 
+    def test_h1(self):
+        '''
+        Lines surrounded by double asterisks should be wrapped in 'strong' tags
+        '''
+        self.assertEqual( 
+                run_markdown('#this should be wrapped in h1 tags'),
+                '<p><h1>this should be wrapped in h1 tags</h1></p>')
+
+    def test_h2(self):
+        '''
+        Lines surrounded by double asterisks should be wrapped in 'strong' tags
+        '''
+        self.assertEqual( 
+                run_markdown('##this should be wrapped in h2 tags'),
+                '<p><h2>this should be wrapped in h2 tags</h2></p>')
+
+    def test_h3(self):
+        '''
+        Lines surrounded by double asterisks should be wrapped in 'strong' tags
+        '''
+        self.assertEqual( 
+                run_markdown('###this should be wrapped in h3 tags'),
+                '<p><h3>this should be wrapped in h3 tags</h3></p>')
+
+
+    def test_bq(self):
+        '''
+        Lines surrounded by double asterisks should be wrapped in 'strong' tags
+        '''
+        self.assertEqual( 
+                run_markdown('> this should be wrapped in blockquote tags'),
+                '<p><blockquote>this should be wrapped in blockquote tags</blockquote></p>')
+
+
 if __name__ == '__main__':
     unittest.main()
 

@@ -1,7 +1,7 @@
 """
  Markdown.py
  0. just print whatever is passed in to stdin
- 0. if filename passed in as a command line parameter, 
+ 0. if filename passed in as a command line parameter,
     then print file instead of stdin
  1. wrap input in paragraph tags
  2. convert single asterisk or underscore pairs to em tags
@@ -22,9 +22,28 @@ def convertEm(line):
   line = re.sub(r'_(.*)_', r'<em>\1</em>', line)
   return line
 
-for line in fileinput.input():
-  line = line.rstrip() 
-  line = convertStrong(line)
-  line = convertEm(line)
-  print '<p>' + line + '</p>',
+def converth1(line):
+  line = re.sub(r'\#(.*)', r'<h1>\1</h1>', line)
+  return line
 
+def converth2(line):
+  line = re.sub(r'\#\#(.*)', r'<h2>\1</h2>', line)
+  return line
+
+def converth3(line):
+  line = re.sub(r'\#\#\#(.*)', r'<h3>\1</h3>', line)
+  return line
+
+def convertbq(line):
+  line = re.sub(r'(> +?)(.+?)((\n\w)|\Z)', r'<blockquote>\2</blockquote>', line)
+  return line
+
+for line in fileinput.input():
+  line = line.rstrip()
+  line = convertbq(line)
+  line = convertStrong(line)
+  line = converth3(line)
+  line = converth2(line)
+  line = converth1(line)
+  line = convertEm(line)
+  print('<p>' + line + '</p>')
